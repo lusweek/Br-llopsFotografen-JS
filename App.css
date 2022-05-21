@@ -1,0 +1,152 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+}
+
+#camera-section{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(60, 60, 60);
+}
+
+#camera-section button{
+    width: 250px;
+    height: 60px;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+#video-wrapper{
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+    height: 80vh;
+    width: 90vw;
+    max-width: 30em;
+    max-height: 30em ;
+    margin-top: 1rem;
+    margin-top: 70px;
+    border-radius: 0.5rem;
+    position: relative;
+}
+
+video {
+    border-radius: 0.5rem;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 0.5rem;
+    object-fit: cover;
+
+
+}
+
+#take-picture{
+    display: none;
+}
+#save-picture{
+    display: none;
+}
+
+.icon{
+    color: white;
+    font-size: 40px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+/* GALLERI START */
+
+#gallery-section{
+opacity: 0;
+display: none;
+transition-duration: 1s;
+
+flex-direction: column;
+align-items: center;
+position: absolute;
+top: 0;
+width: 100vw;
+min-height: 100vh;
+background-color: rgb(50, 50, 50);
+}
+
+#gallery-section h3{
+    font-size: 24px;
+    color: #cbcbcb;
+    letter-spacing: 3px;
+/*     
+    font-family: 'Bebas Neue', cursive;
+    font-family: 'Patrick Hand', cursive; 
+    */
+}
+
+#gallery{
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+#gallery img{
+    width: 40%;
+    max-width: 200px;
+    background-color: rgb(80, 80, 80);
+    margin: 5px;
+    cursor: pointer;
+}
+
+/* GALLERI END */
+
+/* MODAL START */
+
+#modal-section{
+display: none;
+opacity: 0;
+
+width: 100vw;
+height: 100vh;
+top: 0;
+left: 0;
+position: absolute;
+background-color: rgba(0, 0, 0, .8);
+justify-content: center;
+align-items: center;
+transition-duration: 0.5s;
+}
+
+#modal{
+height: 95vh;
+width: 90vw;
+max-width: 3000px;
+max-height: 2000px;
+background-color: #323232;
+border-radius: 5px;
+position: relative;
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+}
+
+#modal-img-div{
+
+}
+/* MODAL END */
