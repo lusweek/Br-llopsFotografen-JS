@@ -27,8 +27,6 @@ body{
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
     height: 80vh;
     width: 90vw;
-    max-width: 30em;
-    max-height: 30em ;
     margin-top: 1rem;
     margin-top: 70px;
     border-radius: 0.5rem;
@@ -124,7 +122,7 @@ width: 100vw;
 height: 100vh;
 top: 0;
 left: 0;
-position: absolute;
+position: fixed;
 background-color: rgba(0, 0, 0, .8);
 justify-content: center;
 align-items: center;
@@ -147,6 +145,21 @@ align-items: center;
 }
 
 #modal-img-div{
+display: flex;
+justify-content: center;
+align-items: center;
 
+width: 90%;
+height: 80%;
 }
+
+#modal-img-div img{
+    width: 100%;
+}
+
+.delete-icon{
+    left: 10px;
+    width: fit-content;
+}
+
 /* MODAL END */

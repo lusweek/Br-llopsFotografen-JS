@@ -4,6 +4,7 @@ let stream;
   const modalImgDiv = document.querySelector('#modal-img-div')
   const modalSection = document.querySelector('#modal-section')
   let images = []
+  let IMG_ID;
 
   if (JSON.parse(localStorage.getItem('cameraApp')) === null) {
     images = []
@@ -16,7 +17,6 @@ let stream;
 
         if ('mediaDevices' in navigator) {
             stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-            console.log(stream);
             videoElem.srcObject = stream;
         }
 
@@ -44,15 +44,52 @@ let stream;
         const imageData = canvas.toDataURL('image/pgn');
 
         images.push({
-            id: images.length,
-            image: imageData
+          image: imageData,
+          id: images.length
           })
+
+          IMG_ID = images.length - 1 
     
           localStorage.setItem('cameraApp', JSON.stringify(images));
-          
           document.querySelector('#gallery').innerHTML = ''
-
           getImages()
+          sendNotification()
+
+    }
+
+    function deleteImg(id) {
+
+      if ( confirm('delete photo?') == true) {
+        const jsonItems = window.localStorage.getItem('cameraApp')
+        const items = JSON.parse(jsonItems)
+  
+        let newItems = []
+  
+            items.find((item) => {
+              if (item.id == id) {
+  
+              } else {
+                newItems.push(item)
+              }
+            })
+  
+            let newItemWithId = []
+  
+              newItems.map((item, index) => {
+                newItemWithId.push({
+                  image: item.image,
+                  id: index
+                  })
+              })
+  
+  
+        window.localStorage.clear()
+        localStorage.setItem('cameraApp', JSON.stringify(newItemWithId));
+        document.querySelector('#gallery').innerHTML = ''
+        images = newItemWithId
+        getImages()
+        closeModal()
+      } 
 
     }
     
@@ -67,6 +104,7 @@ let stream;
       })
 
       document.querySelector('#gallery').append(imageElem);
+
     }
 
     function openModal(id){
@@ -74,7 +112,7 @@ let stream;
       const findImage = images.find((image) => {
         return image.id == id
       })
-      const image = findImage.image      
+      const image = findImage.image 
 
       modalImgDiv.innerHTML = `
       <img src="${image}"></img>
@@ -85,6 +123,9 @@ let stream;
       function open () {
         modalSection.style.opacity='1'
       }
+
+      const deteteIcon = document.querySelector('#deleteIcon')
+      deteteIcon.setAttribute('onclick', `deleteImg(${id})`)
     }
 
     function closeModal() {
@@ -131,4 +172,43 @@ let stream;
         }
     }
 
+    
+
     getImages()
+
+
+    // -------------------------------- NOTIFKATIONER START  -------------------------------- //
+
+    function sendNotification() {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted'){
+          createNotification()
+        } 
+      })
+    }
+
+    function createNotification() {
+      const text = 'See picture'
+
+      const notification = new Notification('Image saved!', { body: text });
+
+      notification.addEventListener('click', () => {
+        openModal(IMG_ID)
+      })
+    }
+
+    // -------------------------------- NOTIFKATIONER END  -------------------------------- //
+
+
+
+    // -------------------------- SERVICE WORKER -------------------------- //
+
+    window.addEventListener('load', async () => {
+      if ('serviceWorker' in navigator){
+        try {
+          await navigator.serviceWorker.register('service-worker-BF.js')
+        } catch (error) {
+          console.log('Kunde inte regestrera service workern: ', error);
+        }
+      }
+    })

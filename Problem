@@ -1,3 +1,6 @@
 * Canvis ser annorlunda ut än video.
 
-* 
+* Vad gör manifest? Hur gör jag appen nedladdningsbar?
+
+* Rad 24 i ServiceWorker. Vad är responce? Varför visas inte min offlineTest.html? 
+

@@ -1,0 +1,20 @@
+{
+    "name": "Bröllopsappen",
+    "short_name": "photoApp",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#000000",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "media/photoApp.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "media/photoApp.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}
