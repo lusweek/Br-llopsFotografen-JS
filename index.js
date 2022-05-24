@@ -19,7 +19,8 @@ let stream;
             stream = await navigator.mediaDevices.getUserMedia(
               { video: {
                 width: {ideal: 373},
-                height: {ideal: 717}
+                height: {ideal: 717},
+                facingMode: "environment"
               }, 
                 audio: false });
             videoElem.srcObject = stream;
