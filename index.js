@@ -16,7 +16,12 @@ let stream;
     async function cameraButton () {
 
         if ('mediaDevices' in navigator) {
-            stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+            stream = await navigator.mediaDevices.getUserMedia(
+              { video: {
+                width: {ideal: 373},
+                height: {ideal: 717}
+              }, 
+                audio: false });
             videoElem.srcObject = stream;
         }
 
