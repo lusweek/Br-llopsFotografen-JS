@@ -1,2 +1,4 @@
+*   Uppdatera JSONbin efter vad som ligger i gallerit och inte efter bilden man tar.
 
-
+*   När man hämtar appen ska bilder från JSONbin hämtas och läggas i localStorage samt
+        i gallerit

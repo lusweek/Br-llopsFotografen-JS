@@ -110,8 +110,6 @@ background-color: rgb(69 48 48);
 }
 
 #gallery img{
-    width: 40%;
-    max-width: 200px;
     background-color: rgb(80, 80, 80);
     margin: 5px;
     cursor: pointer;

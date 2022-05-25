@@ -18,8 +18,6 @@ let stream;
         if ('mediaDevices' in navigator) {
             stream = await navigator.mediaDevices.getUserMedia(
               { video: {
-                width: {min: 1024, ideal: 1280, max: 1920},
-                height: {min: 576, ideal: 720, max: 1080},
                 facingMode: "environment"
               }, 
                 audio: false });
@@ -63,6 +61,7 @@ let stream;
           document.querySelector('#gallery').innerHTML = ''
           getImages()
           sendNotification()
+          updatePhotosJSONbin(imageData)
 
     }
 
@@ -210,14 +209,52 @@ let stream;
 
 
 
-    // -------------------------- SERVICE WORKER -------------------------- //
+    // -------------------------- SERVICE WORKER START -------------------------- //
 
     window.addEventListener('load', async () => {
       if ('serviceWorker' in navigator){
         try {
           await navigator.serviceWorker.register('service-worker-BF.js')
         } catch (error) {
-          console.log('Kunde inte regestrera service workern: ', error);
+          // console.log('Kunde inte regestrera service workern: ', error);
         }
       }
     })
+    // -------------------------- SERVICE WORKER END -------------------------- //
+
+
+    // -------------------------- JSON BIN START -------------------------- //
+
+    const ACCES_URL = 'https://api.jsonbin.io/b/628e2a5e402a5b38020d0619'
+    const X_MASTER_KEY = '$2b$10$bNmw4shKfZqUPu319JVgFOsCk/ehF2wueZlhX2/n5FnbnQo2BkcpK'
+
+    async function getFromJsonBIN () {
+      const responce = await fetch(`${ACCES_URL}/latest`, {
+        headers: {
+          'X-Master-Key': X_MASTER_KEY,
+        }
+      });
+      const data = await responce.json()
+
+      return data.photos
+    }
+
+    async function updatePhotosJSONbin (newData) {
+      const oldStuff = await getFromJsonBIN()
+
+      const newStuff = [...oldStuff, {newData}];
+      console.log('old Stuff: ',oldStuff);
+
+      const responce = await fetch(ACCES_URL, {
+        method: 'PUT',
+        body: JSON.stringify({ photos: newStuff }),
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Master-Key': X_MASTER_KEY
+        }
+    });
+    const data = await responce.json();
+    console.log('updatePhotosJSONbin function data: ', data);
+  }
+
+    // -------------------------- JSON BIN END -------------------------- //

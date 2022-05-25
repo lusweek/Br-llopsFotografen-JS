@@ -16,23 +16,23 @@ self.addEventListener('activate', (event) => {
  
 self.addEventListener('fetch', async (event) => {
     // console.log(event.request.url);
-    console.log(`Intercepting fetch request for: ${event.request.url}`);
+    // console.log(`Intercepting fetch request for: ${event.request.url}`);
     if (!navigator.onLine) {
-        console.log('Offline');
+        // console.log('Offline');
         event.respondWith(
             caches.match(event.request).then((responce) => {
-                console.log('RESPONCE: ', responce);
+                // console.log('RESPONCE: ', responce);
                 if (responce) {
-                    console.log('RESPONCE IS TRUE, RESPNCE: ', responce);
+                    // console.log('RESPONCE IS TRUE, RESPNCE: ', responce);
                     return responce;
                 } else {
-                    console.log('RESPONCE IS FALSE');
+                    // console.log('RESPONCE IS FALSE');
                     return caches.match(new Request('offlineTest.html'));
                 }
             })
         );
     } else {
-        console.log('Online');
+        // console.log('Online');
         const responce = await updateCache(event.request);
         return responce; 
     }
@@ -41,8 +41,10 @@ self.addEventListener('fetch', async (event) => {
 async function updateCache(request) {
     const responce = await fetch(request);
     const cache = await caches.open('BF');
-
-    cache.put(request, responce.clone());
+    
+    if (request.method === 'GET'){
+        cache.put(request, responce.clone());
+    }
 
     return responce;
 }
