@@ -12,7 +12,8 @@ body{
     justify-content: center;
     align-items: center;
 
-    background-color: rgb(60, 60, 60);
+    background: rgb(92,69,20);
+    background: linear-gradient(132deg, rgba(92,69,20,1) 30%, rgb(106, 36, 36) 98%);
 }
 
 #camera-section button{
@@ -21,6 +22,14 @@ body{
     margin: 10px;
     border-radius: 5px;
     border: none;
+    cursor: pointer;
+
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+
+    background: rgb(207,156,44);
+    background: linear-gradient(132deg, rgba(207,156,44,1) 30%, rgba(255,106,106,1) 98%);
 }
 
 #video-wrapper{
@@ -81,7 +90,7 @@ position: absolute;
 top: 0;
 width: 100vw;
 min-height: 100vh;
-background-color: rgb(50, 50, 50);
+background-color: rgb(69 48 48);
 }
 
 #gallery-section h3{
