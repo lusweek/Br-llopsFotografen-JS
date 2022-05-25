@@ -17,11 +17,11 @@ let stream;
 
         if ('mediaDevices' in navigator) {
             stream = await navigator.mediaDevices.getUserMedia(
-              { video: {
-                width: {min: 1024, ideal: 1280, max: 1920},
-                height: {min: 576, ideal: 720, max: 1080},
-                facingMode: "environment"
-              }, 
+              { video: /* { */ true,
+                // width: {min: 1024, ideal: 1280, max: 1920},
+                // height: {min: 576, ideal: 720, max: 1080},
+                // facingMode: "environment"
+              // }, 
                 audio: false });
             videoElem.srcObject = stream;
         }
@@ -35,6 +35,8 @@ let stream;
     document.querySelector('#take-picture').style.display='none'
     document.querySelector('#save-picture').style.display='block'
     document.querySelector('#picture').style.display='block'
+    document.querySelector('video').style.display='none'
+    document.querySelector('canvas').style.display='block'
 
     const ctx = canvas.getContext('2d');
 
@@ -46,6 +48,7 @@ let stream;
         document.querySelector('#save-picture').style.display='none'
         document.querySelector('#take-picture').style.display='block'
         document.querySelector('#picture').style.display='none'
+        document.querySelector('video').style.display='block'
 
         const imageData = canvas.toDataURL('image/pgn');
 
