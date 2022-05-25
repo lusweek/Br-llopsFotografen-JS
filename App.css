@@ -34,6 +34,8 @@ body{
 
 #video-wrapper{
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+    height: 80vh;
+    width: 90vw;
     margin-top: 1rem;
     margin-top: 70px;
     border-radius: 0.5rem;
@@ -139,8 +141,7 @@ height: 95vh;
 width: 90vw;
 max-width: 3000px;
 max-height: 2000px;
-background-color: #323232;
-border-radius: 5px;
+background: linear-gradient(132deg, rgba(92,69,20,1) 30%, rgb(106, 36, 36) 98%);
 position: relative;
 
 display: flex;

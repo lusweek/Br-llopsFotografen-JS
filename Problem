@@ -1,6 +1,2 @@
-* Canvis ser annorlunda ut än video. Hur ändrar jag vilka dimensioner canvisen får?
 
-* Rad 24 i ServiceWorker. Vad är responce? Varför visas inte min offlineTest.html? 
-
-* Sparas allt i caches för att man ska kunna spara appen och använda den offline?
-    Kommer mina font-awesome iconer kunna laddas? 
+*   Kommer mina font-awesome iconer kunna laddas? 
