@@ -34,8 +34,6 @@ body{
 
 #video-wrapper{
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
-    height: 80vh;
-    width: 90vw;
     margin-top: 1rem;
     margin-top: 70px;
     border-radius: 0.5rem;
