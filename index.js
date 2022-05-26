@@ -6,13 +6,6 @@ let stream;
   let images = []
   let IMG_ID;
 
-  if (JSON.parse(localStorage.getItem('cameraApp')) === null) {
-    images = []
-  } else {
-    images = JSON.parse(localStorage.getItem('cameraApp'))
-  }
-  
-
     async function cameraButton () {
 
         if ('mediaDevices' in navigator) {
@@ -61,7 +54,7 @@ let stream;
           document.querySelector('#gallery').innerHTML = ''
           getImages()
           sendNotification()
-          updatePhotosJSONbin(imageData)
+          updatePhotosJSONbin()
 
     }
 
@@ -147,13 +140,15 @@ let stream;
     }
 
     function getImages() {
-
+      // console.log('Images: ', images);
       if (images.length > 0){
         let i = -1
         for (const image of images){
         i++
           createImage(image, i)
         }
+
+
       }
     }
 
@@ -179,11 +174,6 @@ let stream;
           gallery.style.display='none'
         }
     }
-
-    
-
-    getImages()
-
 
     // -------------------------------- NOTIFKATIONER START  -------------------------------- //
 
@@ -225,7 +215,7 @@ let stream;
 
     // -------------------------- JSON BIN START -------------------------- //
 
-    const ACCES_URL = 'https://api.jsonbin.io/b/628e2a5e402a5b38020d0619'
+    const ACCES_URL = 'https://api.jsonbin.io/b/628ea29705f31f68b3a73fa2'
     const X_MASTER_KEY = '$2b$10$bNmw4shKfZqUPu319JVgFOsCk/ehF2wueZlhX2/n5FnbnQo2BkcpK'
 
     async function getFromJsonBIN () {
@@ -236,18 +226,37 @@ let stream;
       });
       const data = await responce.json()
 
-      return data.photos
+      console.log('data :', data);
+
+      images = data
+
+      localStorage.setItem('cameraApp', JSON.stringify(images));
+
+      return data
     }
 
-    async function updatePhotosJSONbin (newData) {
-      const oldStuff = await getFromJsonBIN()
+    async function updatePhotosJSONbin () {
 
-      const newStuff = [...oldStuff, {newData}];
-      console.log('old Stuff: ',oldStuff);
+      const fromStorage = window.localStorage.getItem('cameraApp')
+
+      console.log('fromStorage: ', JSON.parse(fromStorage));
+
+      // let image 
+      // const oldStuff = await getFromJsonBIN()
+      // console.log(oldStuff);
+      // if (!images || !oldStuff) {
+      //   image = [{image: newData, id: IMG_ID}]
+      // } else {
+      //   image = [...oldStuff, {image: newData, id: IMG_ID}];
+      // }
+
+      // TO RESET IMAGES
+      // image = newData
 
       const responce = await fetch(ACCES_URL, {
         method: 'PUT',
-        body: JSON.stringify({ photos: newStuff }),
+        body: fromStorage,
+        // body: JSON.stringify({ fromStorage }), 
         headers: {
           'Content-Type': 'application/json',
           'X-Master-Key': X_MASTER_KEY
@@ -255,6 +264,23 @@ let stream;
     });
     const data = await responce.json();
     console.log('updatePhotosJSONbin function data: ', data);
+
+    // return 
   }
 
     // -------------------------- JSON BIN END -------------------------- //
+
+
+    // -------------------------- ON LOAD -------------------------- //
+
+    window.addEventListener('load', async () => {
+     
+        images = await getFromJsonBIN()
+        if (!images){
+          images = []
+        }
+
+        getImages()
+  
+    })
+    

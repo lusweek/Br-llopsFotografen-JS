@@ -2,3 +2,6 @@
 *   Kommer mina font-awesome iconer kunna laddas? 
 
 *   På telefonså kapas halva bilden när man öppnar den i modalen. 
+
+*   bilderna sparas som newData istellet för image i JSONbin. Vad är der som bestämmer 
+        att bilden vilken KEY objektet ska få?
