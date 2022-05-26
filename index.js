@@ -11,6 +11,8 @@ let stream;
         if ('mediaDevices' in navigator) {
             stream = await navigator.mediaDevices.getUserMedia(
               { video: {
+                width: 414,
+                height: 896,
                 facingMode: "environment"
               }, 
                 audio: false });
@@ -90,6 +92,7 @@ let stream;
         images = newItemWithId
         getImages()
         closeModal()
+        updatePhotosJSONbin()
       } 
 
     }
@@ -140,7 +143,6 @@ let stream;
     }
 
     function getImages() {
-      // console.log('Images: ', images);
       if (images.length > 0){
         let i = -1
         for (const image of images){
@@ -215,8 +217,8 @@ let stream;
 
     // -------------------------- JSON BIN START -------------------------- //
 
-    const ACCES_URL = 'https://api.jsonbin.io/b/628ea29705f31f68b3a73fa2'
-    const X_MASTER_KEY = '$2b$10$bNmw4shKfZqUPu319JVgFOsCk/ehF2wueZlhX2/n5FnbnQo2BkcpK'
+    const ACCES_URL = "https://api.jsonbin.io/b/628ea29705f31f68b3a73fa2"
+    const X_MASTER_KEY = "$2b$10$bNmw4shKfZqUPu319JVgFOsCk/ehF2wueZlhX2/n5FnbnQo2BkcpK"
 
     async function getFromJsonBIN () {
       const responce = await fetch(`${ACCES_URL}/latest`, {
@@ -241,22 +243,9 @@ let stream;
 
       console.log('fromStorage: ', JSON.parse(fromStorage));
 
-      // let image 
-      // const oldStuff = await getFromJsonBIN()
-      // console.log(oldStuff);
-      // if (!images || !oldStuff) {
-      //   image = [{image: newData, id: IMG_ID}]
-      // } else {
-      //   image = [...oldStuff, {image: newData, id: IMG_ID}];
-      // }
-
-      // TO RESET IMAGES
-      // image = newData
-
       const responce = await fetch(ACCES_URL, {
         method: 'PUT',
         body: fromStorage,
-        // body: JSON.stringify({ fromStorage }), 
         headers: {
           'Content-Type': 'application/json',
           'X-Master-Key': X_MASTER_KEY

@@ -1,7 +1,9 @@
 
-*   Kommer mina font-awesome iconer kunna laddas? 
+*   Kommer mina font-awesome iconer kunna laddas från offline? if så, då kan appen
+        användas helt offline och uppdatera sig när man får internet. 
+        Eller kommer bilnerna man tagit i localstorage försvinna nästa gång man 
+        öppnar appen? 
 
-*   På telefonså kapas halva bilden när man öppnar den i modalen. 
+*   På telefonså kapas halva bilden när man öppnar den i modalen.
 
-*   bilderna sparas som newData istellet för image i JSONbin. Vad är der som bestämmer 
-        att bilden vilken KEY objektet ska få?
+*       Bildd läggs ej upp till JSONbin från telefon.
