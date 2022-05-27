@@ -3,7 +3,7 @@ let stream;
   const canvas = document.querySelector('#picture')
   const modalImgDiv = document.querySelector('#modal-img-div')
   const modalSection = document.querySelector('#modal-section')
-  let images = []
+  let images = { pictures: [] }
   let IMG_ID;
 
     async function cameraButton () {
@@ -54,7 +54,7 @@ let stream;
           IMG_ID = images.length - 1 
     
           // NÄR MAN SPARAR FOTA BRA
-          console.log('before setting item: ', images);
+          console.log('before saving to jsonBin item: ', images);
           localStorage.setItem('cameraApp', JSON.stringify(images));
           document.querySelector('#gallery').innerHTML = ''
           getImages()
@@ -75,7 +75,6 @@ let stream;
   
             items.find((item) => {
               if (item.id == id) {
-                console.log('yes!');
               } else {
                 newItems.push(item)
               }
@@ -97,17 +96,12 @@ let stream;
   
         window.localStorage.clear()
 
-        // DÅLIGT! 
-
         // let newArray = newStuff.concat(newItemWithId)
 
-        console.log('newArray2: ', newArray2);
-
-
-        console.log('before setting item: ', newItemWithId);
+        console.log('before saving to jsonBin item: ', newArray2);
         localStorage.setItem('cameraApp', JSON.stringify(newArray2));
         document.querySelector('#gallery').innerHTML = ''
-        images = newItemWithId
+        images = newArray2
         getImages()
         closeModal()
         updatePhotosJSONbin()
@@ -161,6 +155,7 @@ let stream;
 
     function getImages() {
 
+      console.log('images in getImages: ', images);
       if (images.pictures.length > 0){
         let i = -1
         for (const image of images.pictures){
@@ -234,7 +229,7 @@ let stream;
 
     // -------------------------- JSON BIN START -------------------------- //
 
-    const ACCES_URL = "https://api.jsonbin.io/b/6290955105f31f68b3a9c334"
+    const ACCES_URL = "https://api.jsonbin.io/b/6290c5de05f31f68b3aa0f51"
     const X_MASTER_KEY = "$2b$10$bNmw4shKfZqUPu319JVgFOsCk/ehF2wueZlhX2/n5FnbnQo2BkcpK"
 
     async function getFromJsonBIN () {
@@ -245,23 +240,32 @@ let stream;
       });
       const data = await responce.json()
 
-      images = data
+      let newArray = { pictures: [] }
+
+      console.log(data);
+      console.log(newArray);
+
+      data.pictures.map((object) => {
+        newArray.pictures.push(object)
+      })
+
+      console.log('newArray in getFromJsonBIN: ', newArray);
+
 
       // FÖRSTA GÅNGEN BRA
-      console.log('before setting item: ', images);
-      localStorage.setItem('cameraApp', JSON.stringify(images));
+      console.log('before saving to jsonBin: ', newArray);
+      localStorage.setItem('cameraApp', JSON.stringify(newArray));
 
-      return data
+      return newArray
     }
 
     async function updatePhotosJSONbin () {
 
       const fromStorage = window.localStorage.getItem('cameraApp')
-      let newArray = images.pictures.concat(JSON.parse(fromStorage))
 
       const responce = await fetch(ACCES_URL, {
         method: 'PUT',
-        body: JSON.stringify(newArray),
+        body: fromStorage,
         headers: {
           'Content-Type': 'application/json',
           'X-Master-Key': X_MASTER_KEY
@@ -281,6 +285,7 @@ let stream;
     window.addEventListener('load', async () => {
      
         images = await getFromJsonBIN()
+        console.log('Images first time load: ', images);
         if (!images){
           images = []
         }
