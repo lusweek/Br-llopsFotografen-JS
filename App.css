@@ -49,7 +49,7 @@ video {
     object-fit: fill;
 }
 
-canvas {
+#picture {
     top: 0;
     left: 0;
     width: 100%;
@@ -113,6 +113,7 @@ background-color: rgb(69 48 48);
     background-color: rgb(80, 80, 80);
     margin: 5px;
     cursor: pointer;
+    width: 45%;
 }
 
 /* GALLERI END */
@@ -150,8 +151,6 @@ align-items: center;
 
 #modal-img-div{
 display: flex;
-justify-content: center;
-align-items: center;
 
 width: 90%;
 height: 80%;

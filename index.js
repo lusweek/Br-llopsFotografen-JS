@@ -45,13 +45,16 @@ let stream;
 
         const imageData = canvas.toDataURL('image/pgn');
 
-        images.push({
+        images.pictures.push({
           image: imageData,
-          id: images.length
+          id: images.pictures.length
           })
+
 
           IMG_ID = images.length - 1 
     
+          // NÄR MAN SPARAR FOTA BRA
+          console.log('before setting item: ', images);
           localStorage.setItem('cameraApp', JSON.stringify(images));
           document.querySelector('#gallery').innerHTML = ''
           getImages()
@@ -64,22 +67,28 @@ let stream;
 
       if ( confirm('delete photo?') == true) {
         const jsonItems = window.localStorage.getItem('cameraApp')
-        const items = JSON.parse(jsonItems)
-  
+        const stuff = JSON.parse(jsonItems)
+        const items = stuff.pictures
+
+          
         let newItems = []
   
             items.find((item) => {
               if (item.id == id) {
-  
+                console.log('yes!');
               } else {
                 newItems.push(item)
               }
             })
+
   
             let newItemWithId = []
+            let newArray2 = {
+              pictures: []
+            }
   
               newItems.map((item, index) => {
-                newItemWithId.push({
+                newArray2.pictures.push({
                   image: item.image,
                   id: index
                   })
@@ -87,7 +96,16 @@ let stream;
   
   
         window.localStorage.clear()
-        localStorage.setItem('cameraApp', JSON.stringify(newItemWithId));
+
+        // DÅLIGT! 
+
+        // let newArray = newStuff.concat(newItemWithId)
+
+        console.log('newArray2: ', newArray2);
+
+
+        console.log('before setting item: ', newItemWithId);
+        localStorage.setItem('cameraApp', JSON.stringify(newArray2));
         document.querySelector('#gallery').innerHTML = ''
         images = newItemWithId
         getImages()
@@ -98,7 +116,6 @@ let stream;
     }
     
     function createImage(image, i) {
-
       const imageElem = document.createElement('img');
         imageElem.setAttribute('src', image.image);
         imageElem.setAttribute('id', i);
@@ -113,10 +130,10 @@ let stream;
 
     function openModal(id){
 
-      const findImage = images.find((image) => {
+      const findImage = images.pictures.find((image) => {
         return image.id == id
       })
-      const image = findImage.image 
+      const image = findImage.image
 
       modalImgDiv.innerHTML = `
       <img src="${image}"></img>
@@ -143,9 +160,10 @@ let stream;
     }
 
     function getImages() {
-      if (images.length > 0){
+
+      if (images.pictures.length > 0){
         let i = -1
-        for (const image of images){
+        for (const image of images.pictures){
         i++
           createImage(image, i)
         }
@@ -208,7 +226,6 @@ let stream;
         try {
           await navigator.serviceWorker.register('service-worker-BF.js')
         } catch (error) {
-          // console.log('Kunde inte regestrera service workern: ', error);
         }
       }
     })
@@ -217,7 +234,7 @@ let stream;
 
     // -------------------------- JSON BIN START -------------------------- //
 
-    const ACCES_URL = "https://api.jsonbin.io/b/628ea29705f31f68b3a73fa2"
+    const ACCES_URL = "https://api.jsonbin.io/b/6290955105f31f68b3a9c334"
     const X_MASTER_KEY = "$2b$10$bNmw4shKfZqUPu319JVgFOsCk/ehF2wueZlhX2/n5FnbnQo2BkcpK"
 
     async function getFromJsonBIN () {
@@ -228,10 +245,10 @@ let stream;
       });
       const data = await responce.json()
 
-      console.log('data :', data);
-
       images = data
 
+      // FÖRSTA GÅNGEN BRA
+      console.log('before setting item: ', images);
       localStorage.setItem('cameraApp', JSON.stringify(images));
 
       return data
@@ -240,19 +257,18 @@ let stream;
     async function updatePhotosJSONbin () {
 
       const fromStorage = window.localStorage.getItem('cameraApp')
-
-      console.log('fromStorage: ', JSON.parse(fromStorage));
+      let newArray = images.pictures.concat(JSON.parse(fromStorage))
 
       const responce = await fetch(ACCES_URL, {
         method: 'PUT',
-        body: fromStorage,
+        body: JSON.stringify(newArray),
         headers: {
           'Content-Type': 'application/json',
           'X-Master-Key': X_MASTER_KEY
         }
     });
     const data = await responce.json();
-    console.log('updatePhotosJSONbin function data: ', data);
+
 
     // return 
   }
