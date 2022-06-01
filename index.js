@@ -83,8 +83,6 @@ let stream;
               }
             })
 
-  
-            let newItemWithId = []
             let newArray2 = {
               pictures: []
             }
@@ -95,7 +93,6 @@ let stream;
                   id: index
                   })
               })
-  
   
         window.localStorage.clear()
 
@@ -273,7 +270,9 @@ let stream;
 
     // -------------------------- JSON BIN END -------------------------- //
 
-  
+    // -------------------------- CHECK-ONLINE START -------------------------- //
+
+
 function dotToRed () {
   document.querySelector('#online-dot').style.backgroundColor='#e70000'
   }
@@ -282,31 +281,19 @@ function dotToGreen () {
 document.querySelector('#online-dot').style.backgroundColor='rgb(0, 192, 0)'
 }
 
-setInterval(chechOnline, 5000);
+setInterval(checkOnline, 5000);
 
-function chechOnline() {
+function checkOnline() {
   if (!navigator.onLine) {
-    console.log('offline');
     dotToRed()
   } else {
-    console.log('online');
     dotToGreen()
-    updatePhotosJSONbin()
   }
 }
 
-chechOnline()
+checkOnline()
 
-// addEventListener('online', () => { 
-//   console.log('online - dot to green');
-//   dotToGreen()
-//   updatePhotosJSONbin()
-// });
-
-// addEventListener('offline', () => { 
-//   console.log('offline - dot to red');
-//   dotToRed()
-// });
+    // -------------------------- CHECK-ONLINE END -------------------------- //
 
 
     // -------------------------- ON LOAD -------------------------- //

@@ -1,2 +1,21 @@
 PWA app: 
-    Service workern gör att appen blir nedladdningsbar
+    Service workern och manifest.json är det som gör att appen blir nedladdningsbar.
+
+Index.js:
+    Indelad i 6 kategorier. 
+    1. Basic funktionerna (den största delen) innehåller 
+    mediaDevices, sparar i localstorage, lägger bilder från localstorage till galeriet,
+    och modal functionen.
+
+    2. Notifikationer 
+
+    3. instalation av service workern
+
+    4. jsonBIN. sparar från localstorage till jsonBIN 
+
+    5. check online - en function körs var 5te sekund som kollar om navigator.onLine 
+        är true eller false. (fungerar inte alltid)
+
+    6. onLoad. de första som ska köras när appen laddas. consten images uppdateras
+        med data från jsonBIN. getImages functionen  
+
