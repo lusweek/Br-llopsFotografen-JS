@@ -1,5 +1,6 @@
 PWA app: 
     Service workern och manifest.json är det som gör att appen blir nedladdningsbar.
+    FÖR ATT LADDA NER PÅ TELEFON fungerar surge, inte github pages. läs om surge längre ner.
 
 Index.js:
     Indelad i 6 kategorier. 
@@ -19,3 +20,12 @@ Index.js:
     6. onLoad. de första som ska köras när appen laddas. consten images uppdateras
         med data från jsonBIN. getImages functionen  
 
+Statisk hemsida med surge:
+    hemsida: https://surge.sh/
+        npm install --global surge
+        använd gitbacsh!
+        surge
+
+        Följ insruktionern - när du skriver lösenord syns det inte vad du skriver.
+
+        ändra domänen till t.ex. brollopsappen.surge.sh

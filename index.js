@@ -13,7 +13,9 @@ let stream;
 
         if ('mediaDevices' in navigator) {
             stream = await navigator.mediaDevices.getUserMedia(
-              { video: {facingMode: "environment"}, 
+              { video: {
+                facingMode: "environment"
+              }, 
                 audio: false });
             videoElem.srcObject = stream;
         }
@@ -277,7 +279,7 @@ function dotToGreen () {
 document.querySelector('#online-dot').style.backgroundColor='rgb(0, 192, 0)'
 }
 
-setInterval(checkOnline, 5000);
+setInterval(checkOnline, 10000);
 
 function checkOnline() {
   if (!navigator.onLine) {
