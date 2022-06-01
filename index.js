@@ -1,3 +1,6 @@
+    // -------------------------------- BASIC FUNCTIONS START  -------------------------------- //
+
+
 let stream;
   const videoElem = document.querySelector('#camera')
   const canvas = document.querySelector('#picture')
@@ -30,6 +33,8 @@ let stream;
     document.querySelector('#picture').style.display='block'
     document.querySelector('video').style.display='none'
     document.querySelector('canvas').style.display='block'
+
+   
 
     const ctx = canvas.getContext('2d');
 
@@ -184,6 +189,9 @@ let stream;
         }
     }
 
+    // -------------------------------- BASIC FUNCTIONS END  -------------------------------- //
+
+
     // -------------------------------- NOTIFKATIONER START  -------------------------------- //
 
     function sendNotification() {
@@ -265,8 +273,44 @@ let stream;
 
     // -------------------------- JSON BIN END -------------------------- //
 
+  
+function dotToRed () {
+  document.querySelector('#online-dot').style.backgroundColor='#e70000'
+  }
+
+function dotToGreen () {
+document.querySelector('#online-dot').style.backgroundColor='rgb(0, 192, 0)'
+}
+
+setInterval(chechOnline, 5000);
+
+function chechOnline() {
+  if (!navigator.onLine) {
+    console.log('offline');
+    dotToRed()
+  } else {
+    console.log('online');
+    dotToGreen()
+    updatePhotosJSONbin()
+  }
+}
+
+chechOnline()
+
+// addEventListener('online', () => { 
+//   console.log('online - dot to green');
+//   dotToGreen()
+//   updatePhotosJSONbin()
+// });
+
+// addEventListener('offline', () => { 
+//   console.log('offline - dot to red');
+//   dotToRed()
+// });
+
 
     // -------------------------- ON LOAD -------------------------- //
+    
 
     window.addEventListener('load', async () => {
      

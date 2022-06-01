@@ -7,12 +7,12 @@
     "start_url": "/",
     "icons": [
         {
-            "src": "media/photoApp.png",
+            "src": "media/photoApp.webp",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "media/photoApp.png",
+            "src": "media/photoApp.webp",
             "type": "image/png",
             "sizes": "512x512"
         }

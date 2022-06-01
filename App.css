@@ -170,3 +170,15 @@ height: 80%;
 }
 
 /* MODAL END */
+
+#online-dot{
+    position: absolute;
+    top: 17px;
+    left: 18px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: rgb(0, 192, 0);
+    border: solid 1px gray;
+    z-index: 9999;
+}
