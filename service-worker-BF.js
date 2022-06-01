@@ -1,7 +1,7 @@
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open('BF').then((cache) => {
-            return cache.addAll(["offlineTest.html"])
+            return cache.addAll(["index.html"])
         })
     )
 

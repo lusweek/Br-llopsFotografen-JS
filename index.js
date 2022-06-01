@@ -53,8 +53,6 @@ let stream;
 
           IMG_ID = images.length - 1 
     
-          // NÄR MAN SPARAR FOTA BRA
-          console.log('before saving to jsonBin item: ', images);
           localStorage.setItem('cameraApp', JSON.stringify(images));
           document.querySelector('#gallery').innerHTML = ''
           getImages()
@@ -96,9 +94,6 @@ let stream;
   
         window.localStorage.clear()
 
-        // let newArray = newStuff.concat(newItemWithId)
-
-        console.log('before saving to jsonBin item: ', newArray2);
         localStorage.setItem('cameraApp', JSON.stringify(newArray2));
         document.querySelector('#gallery').innerHTML = ''
         images = newArray2
@@ -155,7 +150,6 @@ let stream;
 
     function getImages() {
 
-      console.log('images in getImages: ', images);
       if (images.pictures.length > 0){
         let i = -1
         for (const image of images.pictures){
@@ -242,18 +236,10 @@ let stream;
 
       let newArray = { pictures: [] }
 
-      console.log(data);
-      console.log(newArray);
-
       data.pictures.map((object) => {
         newArray.pictures.push(object)
       })
 
-      console.log('newArray in getFromJsonBIN: ', newArray);
-
-
-      // FÖRSTA GÅNGEN BRA
-      console.log('before saving to jsonBin: ', newArray);
       localStorage.setItem('cameraApp', JSON.stringify(newArray));
 
       return newArray
@@ -271,10 +257,10 @@ let stream;
           'X-Master-Key': X_MASTER_KEY
         }
     });
+
     const data = await responce.json();
 
-
-    // return 
+    console.log(data);
   }
 
     // -------------------------- JSON BIN END -------------------------- //
@@ -285,7 +271,6 @@ let stream;
     window.addEventListener('load', async () => {
      
         images = await getFromJsonBIN()
-        console.log('Images first time load: ', images);
         if (!images){
           images = []
         }
