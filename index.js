@@ -71,7 +71,7 @@ let stream;
         const stuff = JSON.parse(jsonItems)
         const items = stuff.pictures
 
-          
+// newItems är alla bilder förutom den man vill ta bort
         let newItems = []
   
             items.find((item) => {
@@ -80,7 +80,8 @@ let stream;
                 newItems.push(item)
               }
             })
-
+            
+// newArray2 blir allt man vill lägga i localstorage samt till jsonBIN
             let newArray2 = {
               pictures: []
             }
@@ -239,6 +240,7 @@ let stream;
 
       let newArray = { pictures: [] }
 
+      console.log(data);
       data.pictures.map((object) => {
         newArray.pictures.push(object)
       })
@@ -279,7 +281,7 @@ function dotToGreen () {
 document.querySelector('#online-dot').style.backgroundColor='rgb(0, 192, 0)'
 }
 
-setInterval(checkOnline, 10000);
+setInterval(checkOnline, 3000);
 
 function checkOnline() {
   if (!navigator.onLine) {
